@@ -164,6 +164,18 @@ func (c flagCommand) patch(ctx context.Context) error {
 			instructions.SetOn.Value = false
 			instructions.SetOn.Environment = c.Env
 		}
+
+		if len(c.Rules) > 0 {
+			for _, rule := range c.Rules {
+				for e, value := range rule {
+					instructions.Rules = append(instructions.Rules, model.RuleInstruction{
+						Environment: c.Env,
+						Value:       value,
+						Expression:  e,
+					})
+				}
+			}
+		}
 	}
 
 	return api.PatchFlag(ctx, c.Account, c.Project, c.Args.Identifier, &instructions)
@@ -203,17 +215,15 @@ func (c flagCommand) create(ctx context.Context) error {
 				Expression: key,
 				Value:      value,
 			}
-			break
 		}
 	}
 
 	envs := make(map[string]model.Configuration)
 	for _, env := range environments {
 		envs[env.Identifier] = model.Configuration{
-			OnValue:            onValue,
-			OffValue:           offValue,
-			TargetRules:        rules,
-			PercentageRollouts: nil,
+			OnValue:  onValue,
+			OffValue: offValue,
+			Rules:    rules,
 		}
 	}
 	permanent := false
@@ -231,14 +241,13 @@ func (c flagCommand) create(ctx context.Context) error {
 		Environments: envs,
 		Tags:         c.Tags,
 	}
-
-	err = api.CreateFlag(ctx, &body)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("Flag %s successfully created in project %s", c.Args.Identifier,
-		c.Project)
-	return nil
+	defer func() {
+		if err == nil {
+			fmt.Printf("Flag %s successfully created in project %s", c.Args.Identifier,
+				c.Project)
+		}
+	}()
+	return api.CreateFlag(ctx, &body)
 }
 
 func (c flagCommand) removeFlag(ctx context.Context) error {

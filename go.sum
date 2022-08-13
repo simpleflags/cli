@@ -200,6 +200,8 @@ github.com/simpleflags/golang-server-sdk v0.2.1 h1:3Fx5DL2w0ocfx9P0bB0NHQ2jONQj/
 github.com/simpleflags/golang-server-sdk v0.2.1/go.mod h1:1Fl/BwVpCUKSDy3SpZJsrsz+TdMT3Fq7bwpvYi5SIxY=
 github.com/simpleflags/services v0.0.0-20220712012105-c16ff75f0ef6 h1:vYLe0Kk4NJzpIczgp7zOA3r4Z6ho3yKg8oke4SWswQU=
 github.com/simpleflags/services v0.0.0-20220712012105-c16ff75f0ef6/go.mod h1:dwDDRb85GLybdQRJpR1DX0/NhpYVSRGBiQmeDvdHNCE=
+github.com/simpleflags/services v0.0.0-20220813081906-6bcde3577bf5 h1:CVvCsMsOcJN+Onpb24G5d+E6OYEkk42V/VqZJQ9OOeM=
+github.com/simpleflags/services v0.0.0-20220813081906-6bcde3577bf5/go.mod h1:u1xInjzfEO8NzcAZGXZukihNRrQttQYuFRSeROj7ZOw=
 github.com/spaolacci/murmur3 v1.1.0 h1:7c1g84S4BPRrfL5Xrdp6fOJ206sU9y293DDHaoy0bLI=
 github.com/spaolacci/murmur3 v1.1.0/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2Kzu9HwQUA=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

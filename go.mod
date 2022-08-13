@@ -14,7 +14,7 @@ require (
 	github.com/r3labs/sse/v2 v2.8.1
 	github.com/simpleflags/evaluation v0.2.1
 	github.com/simpleflags/golang-server-sdk v0.2.1
-	github.com/simpleflags/services v0.0.0-20220712012105-c16ff75f0ef6
+	github.com/simpleflags/services v0.0.0-20220813081906-6bcde3577bf5
 )
 
 require (

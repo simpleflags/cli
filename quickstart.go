@@ -12,7 +12,7 @@ type quickStartCommand struct {
 }
 
 func (c quickStartCommand) Execute(args []string) error {
-	return getter.Get("example", "git::https://github.com/simpleflags/quickstart.git//"+c.Lang)
+	return getter.Get(c.Dir, "git::https://github.com/simpleflags/quickstart.git//"+c.Lang)
 }
 
 func init() {

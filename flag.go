@@ -24,7 +24,6 @@ type flagCommand struct {
 	Deprecated  *bool               `long:"deprecated" description:"Deprecated flag"`
 	On          *bool               `long:"on" description:"Flag activation"`
 	Off         *bool               `long:"off" description:"Flag deactivate"`
-	OnValue     string              `long:"on-value" description:"Provide on value"`
 	OffValue    string              `long:"off-value" description:"Provide off value"`
 	Rules       []map[string]string `short:"r" long:"rule" description:"Provide rule expression for the value"`
 	Tags        []string            `short:"t" long:"tag" description:"Tags"`
@@ -46,7 +45,7 @@ func (c flagCommand) Execute(_ []string) error {
 			return c.removeFlag(ctx)
 		}
 
-		if c.Name == "" && c.Description == "" && c.On == nil && c.Off == nil && c.OnValue == "" &&
+		if c.Name == "" && c.Description == "" && c.On == nil && c.Off == nil &&
 			c.OffValue == "" && len(c.Rules) == 0 && len(c.Tags) == 0 {
 			return c.print(ctx)
 		}
@@ -124,20 +123,9 @@ func (c flagCommand) patch(ctx context.Context) error {
 
 	// environment based patch
 
-	if c.On != nil || c.Off != nil || c.OnValue != "" || c.OffValue != "" || len(c.Rules) > 0 {
+	if c.On != nil || c.Off != nil || c.OffValue != "" || len(c.Rules) > 0 {
 		if c.Env == "" {
 			return errors.New("environment -e or --env flag is required")
-		}
-
-		if c.OnValue != "" {
-			instructions.SetOnValue.Value = c.OnValue
-			eval, err := expr.Eval(c.OnValue, nil)
-			if err == nil {
-				instructions.SetOnValue.Value = eval
-			} else {
-				instructions.SetOnValue.Value = c.OnValue
-			}
-			instructions.SetOnValue.Environment = c.Env
 		}
 
 		if c.OffValue != "" {
@@ -167,7 +155,12 @@ func (c flagCommand) patch(ctx context.Context) error {
 
 		if len(c.Rules) > 0 {
 			for _, rule := range c.Rules {
-				for e, value := range rule {
+				for e, val := range rule {
+					eval, err := expr.Eval(val, nil)
+					var value interface{} = val
+					if err == nil {
+						value = eval
+					}
 					instructions.Rules = append(instructions.Rules, model.RuleInstruction{
 						Environment: c.Env,
 						Value:       value,
@@ -193,11 +186,6 @@ func (c flagCommand) create(ctx context.Context) error {
 		return errors.New("no environments defined")
 	}
 
-	onValue, err := expr.Eval(c.OnValue, nil)
-	if err != nil {
-		onValue = c.OnValue
-	}
-
 	offValue, err := expr.Eval(c.OffValue, nil)
 	if err != nil {
 		offValue = c.OffValue
@@ -205,14 +193,14 @@ func (c flagCommand) create(ctx context.Context) error {
 
 	rules := make([]evaluation.Rule, len(c.Rules))
 	for i, rule := range c.Rules {
-		for key, val := range rule {
+		for e, val := range rule {
 			eval, err := expr.Eval(val, nil)
 			var value interface{} = val
 			if err == nil {
 				value = eval
 			}
 			rules[i] = evaluation.Rule{
-				Expression: key,
+				Expression: e,
 				Value:      value,
 			}
 		}
@@ -221,7 +209,6 @@ func (c flagCommand) create(ctx context.Context) error {
 	envs := make(map[string]model.Configuration)
 	for _, env := range environments {
 		envs[env.Identifier] = model.Configuration{
-			OnValue:  onValue,
 			OffValue: offValue,
 			Rules:    rules,
 		}

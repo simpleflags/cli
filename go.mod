@@ -5,14 +5,15 @@ go 1.18
 require (
 	github.com/MichaelMure/go-term-markdown v0.1.4
 	github.com/antonmedv/expr v1.9.0
+	github.com/hashicorp/go-getter v1.6.2
 	github.com/jedib0t/go-pretty v4.3.0+incompatible
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/joho/godotenv v1.4.0
 	github.com/kr/pretty v0.3.0
 	github.com/manifoldco/promptui v0.9.0
 	github.com/r3labs/sse/v2 v2.8.1
-	github.com/simpleflags/evaluation v0.2.0
-	github.com/simpleflags/golang-server-sdk v0.2.0
+	github.com/simpleflags/evaluation v0.2.1
+	github.com/simpleflags/golang-server-sdk v0.2.1
 	github.com/simpleflags/services v0.0.0-20220712012105-c16ff75f0ef6
 )
 
@@ -37,9 +38,9 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20191123064959-2c17d62f5098 // indirect
+	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/googleapis/gax-go/v2 v2.0.5 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-getter v1.6.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.1 // indirect
 	github.com/hashicorp/go-safetemp v1.0.0 // indirect
 	github.com/hashicorp/go-version v1.1.0 // indirect
@@ -64,12 +65,12 @@ require (
 	github.com/ulikunitz/xz v0.5.8 // indirect
 	go.mongodb.org/mongo-driver v1.8.3 // indirect
 	go.opencensus.io v0.22.0 // indirect
-	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	go.uber.org/zap v1.21.0 // indirect
+	go.uber.org/zap v1.22.0 // indirect
 	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
 	golang.org/x/image v0.0.0-20191206065243-da761ea9ff43 // indirect
-	golang.org/x/net v0.0.0-20220805013720-a33c5aa5df48 // indirect
+	golang.org/x/net v0.0.0-20220812174116-3211cb980234 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45 // indirect
 	golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10 // indirect
 	golang.org/x/text v0.3.7 // indirect
